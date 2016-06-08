@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>{$topic->getTitle()}</h2></div>
+    <table class="table">
+      {if $topic->getStatus() == 0}
+      <tr>
+          <td class="text-right"><strong>Veröffentlichungsdatum:</strong></td>
+          <td>{$topic->getPublishDate()}</td>
+      </tr>
+      {/if}
+      {if $topic->getStatus() == 100}
+      <tr>
+          <td class="text-right"><strong>Abgeschlossen am:</strong></td>
+          <td>{$topic->getFinishDate()}</td>
+      </tr>
+      {/if}
+      <tr>
+          <td class="text-right"><strong>Betreuer:</strong></td>
+          <td>{$advisor->getFirstname()} {$advisor->getLastname()}</td>
+      </tr>
+      {if $topic->getStatus() == 100}
+      <tr>
+          <td class="text-right"><strong>Student:</strong></td>
+          <td>{$student->getFirstname()} {$student->getLastname()}</td>
+      </tr>
+      {/if}
+      <tr>
+          <td class="text-right"><strong>Beschreibung:</strong></td>
+          <td>{$topic->getDescription()}</td>
+      </tr>
+      <tr>
+          <td class="text-right"></td>
+          <td>
+            {if isset($current_user) && $current_user->isAdvisor() && $current_user->getId() == $advisor->getId()}
+            <a class="btn btn-success" href="index.php?controller=TopicController&action=editTopic&id={$topic->getId()}" role="button">Bearbeiten</a>
+            <a class="btn btn-danger" href="index.php?controller=TopicController&action=deleteTopic&id={$topic->getId()}" role="button">Löschen</a>
+            {elseif $topic->getStatus() == 0}
+            <a class="btn btn-primary" href="index.php?controller=TopicController&action=applyTopic&id={$topic->getId()}" role="button">Bewerben</a>
+            {/if}
+            <a href="javascript:history.go(-1)" class="btn btn-default">Zurück</a>
+            </td>
+      </tr>
+    </table>
+</div>

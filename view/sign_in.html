@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>Bei Thesis anmelden</h2></div>
+    <div class="panel-body">
+        {if isset($error)}
+        <div class="alert alert-danger" role="alert">
+        Es sind Fehler aufgetreten:
+        <ul>
+            {if $error->hasError("firstname_empty")}<li>Bitte geben Sie einen Vornamen ein.</li>{/if}
+            {if $error->hasError("lastname_empty")}<li>Bitte geben Sie einen Nachnamen ein.</li>{/if}
+            {if $error->hasError("email_empty")}<li>Bitte geben Sie eine E-Mail-Adresse ein.</li>{/if}
+            {if $error->hasError("email_invalid")}<li>Bitte geben Sie eine korrekte E-Mail-Adresse ein.</li>{/if}
+            {if $error->hasError("email_exists")}<li>Ein Benutzer mit dieser E-Mail-Adresse existiert bereits.</li>{/if}
+            {if $error->hasError("password_empty")}<li>Bitte geben Sie ein Passwort ein!</li>{/if}
+            {if $error->hasError("password_repeat_empty")}<li>Bitte geben Sie die Wiederholung für das Passwort ein!</li>{/if}
+            {if $error->hasError("password_repeat_not_equal")}<li>Das Passwort stimmt nicht mit der Wiederholung überein!</li>{/if}
+            {if $error->hasError("password_not_valid")}<li>Das Passwort ist nicht sicher!</li>{/if}
+        </ul>
+        </div>
+        {/if}
+        <form role="form" method="post" action="index.php">
+          <input type="hidden" name="controller" value="UserController">
+          <input type="hidden" name="action" value="signIn">
+          <div class="form-group {if isset($firstname_error)}has-error{/if}">
+            <label for="email">Vorname:</label>
+            <input type="text" class="form-control" name="firstname" value="{$user->getFirstname()}">
+          </div>
+          <div class="form-group {if isset($lastname_error)}has-error{/if}">
+            <label for="email">Nachname:</label>
+            <input type="text" class="form-control" name="lastname" value="{$user->getLastname()}">
+          </div>
+          <div class="form-group {if isset($email_error)}has-error{/if}">
+            <label for="email">Email-Adresse:</label>
+            <input type="email" class="form-control" name="email" value="{$user->getEmail()}">
+          </div>
+          <div class="form-group">
+            <label for="select-study">Studiengang:</label>
+            <select class="form-control selectpicker" id="select-study" name="study" data-live-search="true">
+                <option value="ISD" {if $user->getStudy() == "ISD"} selected{/if}>Intelligent Systems Design</option>
+                <option value="ETR" {if $user->getStudy() == "ETR"} selected{/if}>Energietechnik und Ressourcenoptimierung</option>
+                <option value="TMM" {if $user->getStudy() == "TMM"} selected{/if}>Technisches Management und Marketing</option>
+            </select>
+          </div>          
+          <div class="form-group {if isset($password_error)}has-error{/if}">
+            <label for="pwd">Passwort:</label>
+            <input type="password" class="form-control" name="password">
+          </div>
+          <div class="form-group {if isset($password_error)}has-error{/if}">
+            <label for="pwd">Passwort Wiederholung:</label>
+            <input type="password" class="form-control" name="password_repeat">
+          </div>
+          <button type="submit" class="btn btn-default">Anmelden</button>
+        </form>
+    </div>
+</div>

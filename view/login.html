@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading"><h2>Einloggen</h2></div>
+    <div class="panel-body">
+        {if isset($email_error)}
+        <div class="alert alert-danger" role="alert">Bitte geben Sie eine korrekte E-Mail-Adresse ein!</div>
+        {/if}
+        {if isset($user_not_found)}
+        <div class="alert alert-danger" role="alert">Ein Benutzer mit den eingegebenen Daten konnte nicht gefunden werden!</div>
+        {/if}
+        <form role="form" method="post" action="index.php">
+          <input type="hidden" name="controller" value="UserController">
+          <input type="hidden" name="action" value="login">
+          <div class="form-group {if isset($email_error)}has-error{/if}">
+            <label for="email">Email-Adresse:</label>
+            <input type="email" class="form-control" name="email" value="{if isset($email)}{$email}{/if}">
+          </div>
+          <div class="form-group">
+            <label for="pwd">Passwort:</label>
+            <input type="password" class="form-control" name="password">
+          </div>
+          <button type="submit" class="btn btn-default">Einloggen</button>
+        </form>
+    </div>
+</div>

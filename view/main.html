@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thesis</title>
+    <link href="files/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="files/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="files/bootstrap/js/bootstrap.min.js"></script>
+    <script src="files/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <link href="files/summernote/dist/summernote.css" rel="stylesheet">
+    <script src="files/summernote/dist/summernote.min.js"></script>
+    <link rel="stylesheet" href="files/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <script src="files/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="files/bootstrap-select/dist/js/i18n/defaults-*.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.php">Thesis</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">           
+              <li><a href="index.php?controller=TopicController&action=showOpenTopics">Offene Themen</a></li>
+              <li><a href="index.php?controller=TopicController&action=showFinishedTopics">Abgeschlossene Arbeiten</a></li>    
+              <li><a href="index.php?controller=TopicController&action=showMyTopics">Meine Arbeiten</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {if !isset($current_user)}
+            <li><a href="index.php?controller=UserController">Einloggen</a></li>
+            <li><div class="btn-nav"><a class="btn btn-primary btn-small navbar-btn" href="index.php?controller=UserController&action=showSignInForm">Anmelden</a></div></li>
+            {else}
+            <li><a href="index.php?controller=UserController&action=logout">Ausloggen</a></li>
+            {/if}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+    {$body_content}      
+    </div>
+  </body>
+</html>

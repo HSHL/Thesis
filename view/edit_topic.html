@@ -1,0 +1,76 @@
+<form method="post" action="index.php">
+<input type="hidden" name="controller" value="TopicController">
+<input type="hidden" name="action" value="saveTopic">
+<input type="hidden" name="topic_id" value="{$topic->getId()}">
+<input type="hidden" name="advisor_id" value="{$topic->getAdvisorId()}">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        {if isset($new_topic)}
+        <h2>Neues Thema erstellen</h2>
+        {else}
+        <h2>Thema bearbeiten</h2>
+        {/if}
+    </div>
+    <div class="panel-body">
+        {if isset($error)}
+        <div class="alert alert-danger" role="alert">
+        Es sind Fehler aufgetreten!
+        <ul>
+            {if isset($title_error)}<li>Bitte geben Sie einen Titel für das Thema ein!</li>{/if}
+            {if isset($student_error)}<li>Wenn das Thema bearbeitet wird, muss ein Student zugeordnet sein!</li>{/if}
+        </ul>
+        </div>
+        {/if}
+        <div class="form-group {if isset($title_error)}has-error{/if}">
+            <label for="title">Titel:</label>
+            <input type="text" class="form-control" name="title" value="{$topic->getTitle()}">
+        </div>
+        <div class="form-group date">
+            <label for="publish_date">Veröffentlichungsdatum:</label>
+            <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="de">
+            <input type="text" class="form-control" name="publish_date" value="{$topic->getPublishDate()}">
+                <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="student_status">Status der Arbeit:</label>
+            <select class="form-control selectpicker" id="select-status" name="status">
+                <option value="0" {if $topic->getStatus() == 0}selected{/if}>Nicht vergeben</option>
+                <option value="10" {if $topic->getStatus() == 10}selected{/if}>In Bearbeitung</option>
+                <option value="100" {if $topic->getStatus() == 100}selected{/if}>Abgeschlossen</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="student-student">Vergeben an Student:</label>
+            <select class="form-control selectpicker" id="select-student" name="student_id" data-live-search="true">
+                <option value="0" {if $topic->getStudentId() == 0}selected{/if}>Nicht vergeben</option>
+                {foreach from=$students item=$student}
+                <option value="{$student->getId()}" {if $topic->getStudentId() == $student->getId()}selected{/if}>{$student->getFirstname()} {$student->getLastname()}</option>
+                {/foreach}
+            </select>
+        </div>
+        <div class="form-group date">
+            <label for="publish_date">Abgeschlossen am:</label>
+            <div class="input-group date" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="de">
+            <input type="text" class="form-control" name="finish_date" value="{$topic->getFinishDate()}">
+                <div class="input-group-addon">
+                <span class="glyphicon glyphicon-th"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Beschreibung:</label>
+            <textarea id="summernote" name="description">{$topic->getDescription()}</textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Speichern</button>
+        <a href="javascript:history.go(-1)" class="btn btn-default">Abbrechen</a>
+    </div>
+</div>
+</form>
+<script>
+    $(document).ready(function() {
+        $('#summernote').summernote();
+    });
+</script>

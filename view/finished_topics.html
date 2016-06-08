@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading"><h2>Abgeschlossene Arbeiten</h2></div>
+  <div class="panel-body">
+  <p>Die folgende Tabelle zeigt die Arbeiten, die bereits abgeschlossen wurden.</p>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th><a href="index.php?controller=TopicController&action=showFinishedTopics&order_by=title">Titel</a></th>
+            <th><a href="index.php?controller=TopicController&action=showFinishedTopics&order_by=publish_date">Beendet am</a></th>
+            <th><a href="index.php?controller=TopicController&action=showFinishedTopics&order_by=lastname">Student</a></th>
+        </tr>
+    </thead>
+    {foreach from=$topics item=$item}
+    <tr>
+        <td><a href="index.php?controller=TopicController&action=showTopic&id={$item['topic']->getId()}">{$item['topic']->getTitle()}</a></td>
+        <td>{$item['topic']->getFinishDate()}</td>
+        <td>{$item['student']->getFirstname()} {$item['student']->getLastname()}</td>
+    </tr>
+    {/foreach}
+  </table>
+</div>
